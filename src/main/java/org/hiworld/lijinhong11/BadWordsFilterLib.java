@@ -21,7 +21,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.Objects;
 import java.util.Properties;
 
-public class BanWordsFilterLib {
+public class BadWordsFilterLib {
     private static Logger LOGGER;
 
     private static Properties CONFIG;
@@ -32,7 +32,7 @@ public class BanWordsFilterLib {
         File parent = configFile.getParentFile();
         if (!parent.exists() || !configFile.exists()) {
             parent.mkdirs();
-            try (InputStream is = Objects.requireNonNull(BanWordsFilterLib.class.getClassLoader().getResource("config.properties")).openStream()) {
+            try (InputStream is = Objects.requireNonNull(BadWordsFilterLib.class.getClassLoader().getResource("config.properties")).openStream()) {
                 if (is == null) {
                     throw new NullPointerException("resource is null");
                 }
@@ -51,7 +51,7 @@ public class BanWordsFilterLib {
 
         LoggerContext ctx = new LoggerContext("BanWordsFilterContext");
         try {
-            ctx.setConfigLocation(Objects.requireNonNull(BanWordsFilterLib.class.getClassLoader().getResource("log4j2.xml")).toURI());
+            ctx.setConfigLocation(Objects.requireNonNull(BadWordsFilterLib.class.getClassLoader().getResource("log4j2.xml")).toURI());
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }

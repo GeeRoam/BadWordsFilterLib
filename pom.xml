@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.hiworld.lijinhong11</groupId>
-    <artifactId>BanWordsFilterLib</artifactId>
+    <artifactId>BadWordsFilterLib</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -28,6 +28,41 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <relocations>
+                        <relocation>
+                            <pattern>com.aliyun</pattern>
+                            <shadedPattern>org.hiworld.lijinhong11.lib.aliyun_sdk</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>okhttp3</pattern>
+                            <shadedPattern>org.hiworld.lijinhong11.lib.okhttp3</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>okio</pattern>
+                            <shadedPattern>org.hiworld.lijinhong11.lib.okio</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.vladium.emma.rt</pattern>
+                            <shadedPattern>org.hiworld.lijinhong11.lib.ort</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.jacoco.agent.rt</pattern>
+                            <shadedPattern>org.hiworld.lijinhong11.lib.rt</shadedPattern>
+                        </relocation>
+                    </relocations>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>META-INF/*.SF</exclude>
+                                <exclude>META-INF/*.DSA</exclude>
+                                <exclude>META-INF/*.RSA</exclude>
+                                <exclude>META-INF/services/*</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -86,11 +121,6 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j2-impl</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.lmax</groupId>
-            <artifactId>disruptor</artifactId>
-            <version>3.4.4</version>
         </dependency>
 
         <dependency>
