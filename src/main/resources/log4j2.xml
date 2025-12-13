@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="OFF" monitorInterval="60" xmlns="https://logging.apache.org/xml/ns"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="
+                   https://logging.apache.org/xml/ns
+                   https://logging.apache.org/xml/ns/log4j-config-2.xsd">
+    <Appenders>
+        <RollingFile name="TheFile"
+                     fileName="${sys:user.home}/.badwords/logs/current.log"
+                     filePattern="${sys:user.home}/.badwords/logs/%d{yyyy}/%d{MM}/%d{yyyy-MM-dd}.log">
+
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss}][%X{source}] %m%n"/>
+
+            <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="chat" level="INFO">
+            <AppenderRef ref="TheFile"/>
+        </Logger>
+
+        <Root level="OFF"/>
+    </Loggers>
+</Configuration>
