@@ -22,9 +22,7 @@ import java.util.Objects;
 import java.util.Properties;
 
 public class BanWordsFilterLib {
-    private static Logger HIGH;
-    private static Logger MEDIUM;
-    private static Logger LOW;
+    private static Logger LOGGER;
 
     private static Properties CONFIG;
     private static Config GREEN_CONFIG;
@@ -60,9 +58,7 @@ public class BanWordsFilterLib {
 
         ctx.start();
 
-        HIGH = ctx.getLogger("chat.high");
-        MEDIUM = ctx.getLogger("chat.medium");
-        LOW = ctx.getLogger("chat.low");
+        LOGGER = ctx.getLogger("chat");
     }
 
     public static boolean isMatch(PlayerInfo playerInfo, String text) {
@@ -139,12 +135,9 @@ public class BanWordsFilterLib {
 
     private static void doLog(PlayerInfo info, RiskLevel level, String text) {
         ThreadContext.put("source", info.source());
+        ThreadContext.put("level", level.toString());
 
-        switch (level) {
-            case HIGH -> HIGH.info("{}: {}", info.playerId(), text);
-            case MEDIUM -> MEDIUM.info("{}: {}", info.playerId(), text);
-            case LOW -> LOW.info("{}: {}", info.playerId(), text);
-        }
+        LOGGER.info("{}: {}", info.playerId(), text);
 
         ThreadContext.clearAll();
     }

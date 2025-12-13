@@ -9,7 +9,7 @@
                      fileName="${sys:user.home}/.badwords/logs/current.log"
                      filePattern="${sys:user.home}/.badwords/logs/%d{yyyy}/%d{MM}/%d{yyyy-MM-dd}.log">
 
-            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss}][%X{source}] %m%n"/>
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss}][%X{source}][%X{level}] %m%n"/>
 
             <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
         </RollingFile>
