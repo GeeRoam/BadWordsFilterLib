@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.hiworld.lijinhong11</groupId>
+    <groupId>com.geeroam.badwords</groupId>
     <artifactId>BadWordsFilterLib</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>25</maven.compiler.source>
+        <maven.compiler.target>25</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -19,7 +19,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.6.0</version>
+                <version>3.6.2</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -32,23 +32,19 @@
                     <relocations>
                         <relocation>
                             <pattern>com.aliyun</pattern>
-                            <shadedPattern>org.hiworld.lijinhong11.lib.aliyun_sdk</shadedPattern>
+                            <shadedPattern>com.geeroam.badwords.lib.aliyun_sdk</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>okhttp3</pattern>
-                            <shadedPattern>org.hiworld.lijinhong11.lib.okhttp3</shadedPattern>
+                            <pattern>org.apache.commons.codec</pattern>
+                            <shadedPattern>com.geeroam.badwords.lib.commons_codec</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>okio</pattern>
-                            <shadedPattern>org.hiworld.lijinhong11.lib.okio</shadedPattern>
+                            <pattern>org.bouncycastle</pattern>
+                            <shadedPattern>com.geeroam.badwords.lib.bcprov</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>com.vladium.emma.rt</pattern>
-                            <shadedPattern>org.hiworld.lijinhong11.lib.ort</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>org.jacoco.agent.rt</pattern>
-                            <shadedPattern>org.hiworld.lijinhong11.lib.rt</shadedPattern>
+                            <pattern>darabonba</pattern>
+                            <shadedPattern>com.geeroam.badwords.lib.darabonba</shadedPattern>
                         </relocation>
                     </relocations>
                     <filters>
@@ -59,6 +55,17 @@
                                 <exclude>META-INF/*.DSA</exclude>
                                 <exclude>META-INF/*.RSA</exclude>
                                 <exclude>META-INF/services/*</exclude>
+                                <exclude>META-INF/versions/9/**</exclude>
+                                <exclude>META-INF/versions/11/**</exclude>
+                                <exclude>META-INF/versions/15/**</exclude>
+                                <exclude>META-INF/LICENSE</exclude>
+                                <exclude>META-INF/LICENSE.*</exclude>
+                                <exclude>META-INF/NOTICE</exclude>
+                                <exclude>META-INF/NOTICE.*</exclude>
+                                <exclude>**/module-info.class</exclude>
+                                <exclude>org/slf4j/**</exclude>
+                                <exclude>org/jetbrains/annotations/**</exclude>
+                                <exclude>org/intellij/lang/annotations/**</exclude>
                             </excludes>
                         </filter>
                     </filters>
@@ -77,7 +84,7 @@
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-bom</artifactId>
-                <version>2.25.2</version>
+                <version>2.26.1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -87,8 +94,8 @@
     <dependencies>
         <dependency>
             <groupId>com.aliyun</groupId>
-            <artifactId>green20220302</artifactId>
-            <version>2.21.1</version>
+            <artifactId>alibabacloud-green20220302</artifactId>
+            <version>3.0.17</version>
             <scope>compile</scope>
             <exclusions>
                 <exclusion>
@@ -96,6 +103,34 @@
                     <artifactId>gson</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+            <version>3.18.5</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google</groupId>
+                    <artifactId>gson</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-codec</groupId>
+                    <artifactId>commons-codec</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk18on</artifactId>
+            <version>1.85.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.22.1</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -106,21 +141,30 @@
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.13.0</version>
+            <version>2.14.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.errorprone</groupId>
+            <artifactId>error_prone_annotations</artifactId>
+            <version>2.50.0</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j2-impl</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>

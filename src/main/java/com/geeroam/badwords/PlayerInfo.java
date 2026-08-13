@@ -1,4 +1,4 @@
-package org.hiworld.lijinhong11;
+package com.geeroam.badwords;
 
 public record PlayerInfo(String source, String playerId) {
 }
